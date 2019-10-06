@@ -149,19 +149,18 @@ Module.register("MMM-MyRadio",{
 		stationMenu.className = "stationMenu";
 		stationMenu.style.maxWidth = stationListWidth;
 
-		let statindex;
-		for (statindex = 0; statindex < stationsArray.length; ++statindex) {
+		for (let statindex = 0; statindex < stationsArray.length; statindex++) {
 			let strsplit = stationsArray[statindex].split(" ")
 			let scriptfile = strsplit[1];
 			let station = strsplit[1];
-			let statplace = (statindex * 1) * 60 + 1;
+			let statplace = (statindex) * 60 + 1;
 			station = document.createElement("div");
 			station.innerHTML = '<img src="modules/MMM-MyRadio/images/' + strsplit[0] + '.png" style="cursor:pointer">';
 			station.className = "button";
 			station.style.left = statplace + "px";
 			station.addEventListener("click", () => self.play(scriptfile));
 			stationMenu.appendChild(station);
-		};
+		}
 
 		wrapper.appendChild(stationMenu);
 
