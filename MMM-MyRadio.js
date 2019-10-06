@@ -15,7 +15,7 @@ function getNextChannel(configInstance) {
 	let scriptfile = strsplit[1];
 	
 	// increment global variable
-	statix = statix + 1;
+	statix++;
 	if (statix === 4) {
 		statix = 0;
 	}
@@ -32,7 +32,8 @@ Module.register("MMM-MyRadio",{
 			"R radio", // Separation by space, First part "R" is the .png image filename, the second is .sh script name
 		],
 		autoplay: false,
-		volume: "100%"
+		volume: "100%",
+		tinyMode: false
 
 	},
 
@@ -164,58 +165,62 @@ Module.register("MMM-MyRadio",{
 
 		wrapper.appendChild(stationMenu);
 
+		//TODO: Test if this works...
 //		function play(scriptfile) {
 //			self.sendSocketNotification(scriptfile, {});
 //		};
+		let tinyMode = this.config.tinyMode;
 
-		let topMenu = document.createElement("div");
-		topMenu.className = "topMenu";
-		topMenu.style.display = "block";
+		if(tinyMode === false) {
+			let topMenu = document.createElement("div");
+			topMenu.className = "topMenu";
+			topMenu.style.display = "block";
 
-		let stopper = document.createElement("div");
-		stopper.className = "button";
-		stopper.innerHTML = '<img src="modules/MMM-MyRadio/images/stopButton.png" style="cursor:pointer"></img>';
-		stopper.style.left = "1px";
-		stopper.addEventListener("click", () => radiostop());
+			let stopper = document.createElement("div");
+			stopper.className = "button";
+			stopper.innerHTML = '<img src="modules/MMM-MyRadio/images/stopButton.png" style="cursor:pointer"></img>';
+			stopper.style.left = "1px";
+			stopper.addEventListener("click", () => radiostop());
 
-		function radiostop() {
-			self.sendSocketNotification('Radiostop', {});
-		};
+			function radiostop() {
+				self.sendSocketNotification('Radiostop', {});
+			};
 
-		let volumeUp = document.createElement("div");
-		volumeUp.className = "button";
-		volumeUp.innerHTML = '<img src="modules/MMM-MyRadio/images/volumedownButton.png" style="cursor:pointer"></img>';
-		volumeUp.style.left = "61px";
-		volumeUp.addEventListener("click", () => volumecontrol('VolumeDown'));
+			let volumeUp = document.createElement("div");
+			volumeUp.className = "button";
+			volumeUp.innerHTML = '<img src="modules/MMM-MyRadio/images/volumedownButton.png" style="cursor:pointer"></img>';
+			volumeUp.style.left = "61px";
+			volumeUp.addEventListener("click", () => volumecontrol('VolumeDown'));
 
-		let volumeDown = document.createElement("div");
-		volumeDown.className = "button";
-		volumeDown.innerHTML = '<img src="modules/MMM-MyRadio/images/volumeupButton.png" style="cursor:pointer"></img>';
-		volumeDown.style.left = "121px";
-		volumeDown.addEventListener("click", () => volumecontrol('VolumeUp'));
+			let volumeDown = document.createElement("div");
+			volumeDown.className = "button";
+			volumeDown.innerHTML = '<img src="modules/MMM-MyRadio/images/volumeupButton.png" style="cursor:pointer"></img>';
+			volumeDown.style.left = "121px";
+			volumeDown.addEventListener("click", () => volumecontrol('VolumeUp'));
 
-		let volumeMute = document.createElement("div");
-		volumeMute.className = "button";
-		volumeMute.innerHTML = '<img src="modules/MMM-MyRadio/images/muteButton.png" style="cursor:pointer"></img>';
-		volumeMute.style.left = "181px";
-		volumeMute.addEventListener("click", () => volumecontrol('Mute'));
+			let volumeMute = document.createElement("div");
+			volumeMute.className = "button";
+			volumeMute.innerHTML = '<img src="modules/MMM-MyRadio/images/muteButton.png" style="cursor:pointer"></img>';
+			volumeMute.style.left = "181px";
+			volumeMute.addEventListener("click", () => volumecontrol('Mute'));
 
-		let Leer = document.createElement("div");
-	        Leer.classList.add("small", "bright", "leer");
-		Leer.innerHTML = "Vol:  <br>" + self.VText;
-		Leer.style.left = "241px";
+			let Leer = document.createElement("div");
+		        Leer.classList.add("small", "bright", "leer");
+			Leer.innerHTML = "Vol:  <br>" + self.VText;
+			Leer.style.left = "241px";
 
-		function volumecontrol(action) {
-			self.sendSocketNotification(action, {});
-		};
+			function volumecontrol(action) {
+				self.sendSocketNotification(action, {});
+			};
 
-		topMenu.appendChild(stopper);
-		topMenu.appendChild(volumeUp);
-		topMenu.appendChild(volumeDown);
-		topMenu.appendChild(volumeMute);
-		topMenu.appendChild(Leer);
+			topMenu.appendChild(stopper);
+			topMenu.appendChild(volumeUp);
+			topMenu.appendChild(volumeDown);
+			topMenu.appendChild(volumeMute);
+			topMenu.appendChild(Leer);
 		
-		wrapper.appendChild(topMenu);
+			wrapper.appendChild(topMenu);
+		}
 
 		let Sender = document.createElement("div");
 		Sender.classList.add("small", "bright", "sender");
