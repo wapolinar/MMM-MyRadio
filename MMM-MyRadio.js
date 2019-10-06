@@ -153,7 +153,7 @@ Module.register("MMM-MyRadio",{
 			let strsplit = stationsArray[statindex].split(" ")
 			let scriptfile = strsplit[1];
 			let station = strsplit[1];
-                        let statplace = (statindex * 1) * 60 + 1;
+			let statplace = (statindex * 1) * 60 + 1;
 			station = document.createElement("div");
 			station.innerHTML = '<img src="modules/MMM-MyRadio/images/' + strsplit[0] + '.png" style="cursor:pointer">';
 			station.className = "button";
@@ -169,38 +169,41 @@ Module.register("MMM-MyRadio",{
 //		};
 
 		let topMenu = document.createElement("div");
-			topMenu.className = "topMenu";
-			topMenu.style.display = "block";
+		topMenu.className = "topMenu";
+		topMenu.style.display = "block";
 
 		let stopper = document.createElement("div");
-			stopper.className = "button";
-			stopper.innerHTML = '<img src="modules/MMM-MyRadio/images/stopButton.png" style="cursor:pointer"></img>';
-			stopper.style.left = "1px";
-			stopper.addEventListener("click", () => radiostop());
+		stopper.className = "button";
+		stopper.innerHTML = '<img src="modules/MMM-MyRadio/images/stopButton.png" style="cursor:pointer"></img>';
+		stopper.style.left = "1px";
+		stopper.addEventListener("click", () => radiostop());
 
 		function radiostop() {
 			self.sendSocketNotification('Radiostop', {});
 		};
 
 		let volumeUp = document.createElement("div");
-			volumeUp.className = "button";
-			volumeUp.innerHTML = '<img src="modules/MMM-MyRadio/images/volumedownButton.png" style="cursor:pointer"></img>';
-			volumeUp.style.left = "61px";
-			volumeUp.addEventListener("click", () => volumecontrol('VolumeDown'));
+		volumeUp.className = "button";
+		volumeUp.innerHTML = '<img src="modules/MMM-MyRadio/images/volumedownButton.png" style="cursor:pointer"></img>';
+		volumeUp.style.left = "61px";
+		volumeUp.addEventListener("click", () => volumecontrol('VolumeDown'));
+
 		let volumeDown = document.createElement("div");
-			volumeDown.className = "button";
-			volumeDown.innerHTML = '<img src="modules/MMM-MyRadio/images/volumeupButton.png" style="cursor:pointer"></img>';
-			volumeDown.style.left = "121px";
-			volumeDown.addEventListener("click", () => volumecontrol('VolumeUp'));
+		volumeDown.className = "button";
+		volumeDown.innerHTML = '<img src="modules/MMM-MyRadio/images/volumeupButton.png" style="cursor:pointer"></img>';
+		volumeDown.style.left = "121px";
+		volumeDown.addEventListener("click", () => volumecontrol('VolumeUp'));
+
 		let volumeMute = document.createElement("div");
-			volumeMute.className = "button";
-			volumeMute.innerHTML = '<img src="modules/MMM-MyRadio/images/muteButton.png" style="cursor:pointer"></img>';
-			volumeMute.style.left = "181px";
-			volumeMute.addEventListener("click", () => volumecontrol('Mute'));
+		volumeMute.className = "button";
+		volumeMute.innerHTML = '<img src="modules/MMM-MyRadio/images/muteButton.png" style="cursor:pointer"></img>';
+		volumeMute.style.left = "181px";
+		volumeMute.addEventListener("click", () => volumecontrol('Mute'));
+
 		let Leer = document.createElement("div");
-	        	Leer.classList.add("small", "bright", "leer");
-			Leer.innerHTML = "Vol:  <br>" + self.VText;
-			Leer.style.left = "241px";
+	        Leer.classList.add("small", "bright", "leer");
+		Leer.innerHTML = "Vol:  <br>" + self.VText;
+		Leer.style.left = "241px";
 
 		function volumecontrol(action) {
 			self.sendSocketNotification(action, {});
